@@ -29,5 +29,6 @@ dist-ssr
 # Raw photo dumps — the site serves optimized copies in public/assets
 src/photos/
 
-# Local binaries
+# Local binaries and leftover media dumps
 *.exe
+*.mp4
