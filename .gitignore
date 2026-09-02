@@ -25,6 +25,7 @@ dist-ssr
 
 .vercel
 .env*
+!.env.example
 
 # Raw photo dumps — the site serves optimized copies in public/assets
 src/photos/
