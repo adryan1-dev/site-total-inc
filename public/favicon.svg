@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Total Incorporações">
+  <rect width="32" height="32" fill="#ffffff"/>
+  <path fill="#a63232" d="M9.2 8.2h3.1v4.2H9.2z"/>
+  <path fill="none" stroke="#a63232" stroke-linejoin="miter" stroke-width="2.2" d="M5 16.2 16 6.4 27 16.2"/>
+  <rect x="13.6" y="10.4" width="4.8" height="4.8" fill="none" stroke="#a63232" stroke-width="1.3"/>
+  <path stroke="#a63232" stroke-width="1.1" d="M16 10.4v4.8M13.6 12.8h4.8"/>
+  <rect x="11.4" y="19.2" width="9.2" height="9.2" rx="0.9" fill="#a63232"/>
+</svg>

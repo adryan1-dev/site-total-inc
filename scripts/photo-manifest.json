@@ -1,0 +1,140 @@
+[
+  {
+    "key": "horizonte.hero",
+    "src": "/assets/recantos/horizonte/hero.webp",
+    "width": 1920,
+    "height": 1600
+  },
+  {
+    "key": "horizonte.about",
+    "src": "/assets/recantos/horizonte/fachada-2.webp",
+    "width": 1600,
+    "height": 1333
+  },
+  {
+    "key": "horizonte.lazer.0",
+    "src": "/assets/recantos/horizonte/lazer-1.webp",
+    "width": 1600,
+    "height": 1600
+  },
+  {
+    "key": "horizonte.lazer.1",
+    "src": "/assets/recantos/horizonte/lazer-2.webp",
+    "width": 1400,
+    "height": 788
+  },
+  {
+    "key": "horizonte.lazer.2",
+    "src": "/assets/recantos/horizonte/lazer-3.webp",
+    "width": 1400,
+    "height": 1400
+  },
+  {
+    "key": "horizonte.interiores.0",
+    "src": "/assets/recantos/horizonte/living-1.webp",
+    "width": 1400,
+    "height": 1400
+  },
+  {
+    "key": "horizonte.interiores.1",
+    "src": "/assets/recantos/horizonte/living-2.webp",
+    "width": 1400,
+    "height": 1400
+  },
+  {
+    "key": "horizonte.interiores.2",
+    "src": "/assets/recantos/horizonte/quarto-1.webp",
+    "width": 1400,
+    "height": 1400
+  },
+  {
+    "key": "horizonte.interiores.3",
+    "src": "/assets/recantos/horizonte/quarto-2.webp",
+    "width": 1400,
+    "height": 1400
+  },
+  {
+    "key": "horizonte.interiores.4",
+    "src": "/assets/recantos/horizonte/cozinha-1.webp",
+    "width": 1400,
+    "height": 1750
+  },
+  {
+    "key": "horizonte.interiores.5",
+    "src": "/assets/recantos/horizonte/cozinha-2.webp",
+    "width": 1400,
+    "height": 1750
+  },
+  {
+    "key": "horizonte.interiores.6",
+    "src": "/assets/recantos/horizonte/cena-03.webp",
+    "width": 1400,
+    "height": 933
+  },
+  {
+    "key": "horizonte.interiores.7",
+    "src": "/assets/recantos/horizonte/cena-04.webp",
+    "width": 1400,
+    "height": 933
+  },
+  {
+    "key": "mata.cover",
+    "src": "/assets/recantos/mata/fachada.webp",
+    "width": 1600,
+    "height": 1600
+  },
+  {
+    "key": "mata.night",
+    "src": "/assets/recantos/mata/fachada-noturna.webp",
+    "width": 1600,
+    "height": 1600
+  },
+  {
+    "key": "alpes.cover",
+    "src": "/assets/recantos/alpes/hall.webp",
+    "width": 1600,
+    "height": 800
+  },
+  {
+    "key": "horizonte.plantas.0",
+    "src": "/assets/recantos/horizonte/planta-bl1-1.webp",
+    "width": 1600,
+    "height": 900
+  },
+  {
+    "key": "horizonte.plantas.1",
+    "src": "/assets/recantos/horizonte/planta-bl1-2.webp",
+    "width": 1600,
+    "height": 900
+  },
+  {
+    "key": "horizonte.plantas.2",
+    "src": "/assets/recantos/horizonte/planta-bl1-3.webp",
+    "width": 1600,
+    "height": 900
+  },
+  {
+    "key": "horizonte.plantas.3",
+    "src": "/assets/recantos/horizonte/planta-bl1-4.webp",
+    "width": 1600,
+    "height": 900
+  },
+  {
+    "key": "horizonte.plantas.4",
+    "src": "/assets/recantos/horizonte/planta-bl2-1.webp",
+    "width": 1600,
+    "height": 900
+  },
+  {
+    "key": "horizonte.plantas.5",
+    "src": "/assets/recantos/horizonte/planta-bl2-2.webp",
+    "width": 1600,
+    "height": 900
+  },
+  {
+    "key": "horizonte.plantas.6",
+    "src": "/assets/recantos/horizonte/planta-bl2-3.webp",
+    "width": 1600,
+    "height": 900
+  }
+]
