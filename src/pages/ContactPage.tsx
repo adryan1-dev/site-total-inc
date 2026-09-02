@@ -50,7 +50,7 @@ export function ContactPage() {
             </li>
           </ul>
         </div>
-        <div className="lg:col-span-6 lg:col-start-7">
+        <div id="formulario" className="lg:col-span-6 lg:col-start-7">
           <LeadForm />
         </div>
       </div>

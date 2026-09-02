@@ -26,6 +26,7 @@ describe('ContactPage', () => {
 
     const form = container.querySelector('form')
     expect(form).not.toBeNull()
+    expect(container.querySelector('#formulario')).not.toBeNull()
     fireEvent.submit(form!)
 
     expect(await screen.findByText('Digite seu nome completo.')).toBeTruthy()

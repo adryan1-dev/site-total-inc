@@ -21,6 +21,7 @@ describe('HomePage', () => {
     expect(container.textContent).toContain('Recanto dos Alpes')
     expect(container.textContent).toContain('177')
     expect(container.textContent).toContain('Falar no WhatsApp')
+    expect(container.querySelector('a[href="/contato#formulario"]')).not.toBeNull()
     expect(container.textContent).not.toContain('Jardins')
   })
 })

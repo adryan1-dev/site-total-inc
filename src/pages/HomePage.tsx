@@ -24,7 +24,7 @@ export function HomePage() {
 
   return (
     <div>
-      <section className="relative min-h-[calc(100svh-var(--header-h))] bg-ink text-paper" data-hero>
+      <section className="relative z-0 isolate min-h-[calc(100svh-var(--header-h))] bg-ink text-paper" data-hero>
         <img
           src={featured.cover.src}
           alt={featured.cover.alt}
@@ -143,7 +143,7 @@ export function HomePage() {
             <WhatsAppLink variant="primary" message={messages.general}>
               WhatsApp
             </WhatsAppLink>
-            <Link to="/contato" className="cta-ghost text-ink">
+            <Link to="/contato#formulario" className="cta-ghost text-ink">
               Formulário
             </Link>
           </div>
