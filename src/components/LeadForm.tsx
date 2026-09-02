@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react'
 import { developments } from '../data/developments'
+import { submitLeadToGoogleForm } from '../lib/google-form'
 import { whatsappHref } from '../data/site'
 
 type Fields = {
@@ -30,17 +31,28 @@ export function LeadForm() {
   const [fields, setFields] = useState(empty)
   const [errors, setErrors] = useState<Partial<Record<FieldName, string>>>({})
   const [sent, setSent] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState('')
 
   function update<K extends keyof Fields>(key: K, value: Fields[K]) {
     setFields((current) => ({ ...current, [key]: value }))
   }
 
-  function onSubmit(event: FormEvent<HTMLFormElement>) {
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const next = validate(fields)
     setErrors(next)
-    if (Object.keys(next).length > 0) return
-    setSent(true)
+    if (Object.keys(next).length > 0 || submitting) return
+    setSubmitError('')
+    setSubmitting(true)
+    try {
+      await submitLeadToGoogleForm(fields)
+      setSent(true)
+    } catch {
+      setSubmitError('Não foi possível enviar. Tente de novo ou fale no WhatsApp.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   if (sent) {
@@ -69,7 +81,7 @@ export function LeadForm() {
   }
 
   return (
-    <form className="flex flex-col gap-6" onSubmit={onSubmit} noValidate>
+    <form className="flex flex-col gap-6" onSubmit={onSubmit} noValidate aria-busy={submitting}>
       <label className={`field ${errors.name ? 'is-error' : ''}`}>
         <span>Nome</span>
         <input
@@ -117,8 +129,13 @@ export function LeadForm() {
         />
         {errors.message ? <p className="field-error">{errors.message}</p> : null}
       </label>
-      <button type="submit" className="cta-primary w-full md:w-auto">
-        Enviar mensagem
+      {submitError ? (
+        <p className="field-error" role="alert">
+          {submitError}
+        </p>
+      ) : null}
+      <button type="submit" className="cta-primary w-full md:w-auto" disabled={submitting}>
+        {submitting ? 'Enviando...' : 'Enviar mensagem'}
       </button>
     </form>
   )
