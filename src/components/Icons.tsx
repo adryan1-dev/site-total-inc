@@ -9,7 +9,7 @@ export function IconMenu({ className }: IconProps) {
         fill="none"
         stroke="currentColor"
         strokeLinecap="round"
-        strokeWidth="2"
+        strokeWidth="1.75"
         d="M4 6h16M4 12h16M4 18h16"
       />
     </svg>
@@ -23,7 +23,7 @@ export function IconClose({ className }: IconProps) {
         fill="none"
         stroke="currentColor"
         strokeLinecap="round"
-        strokeWidth="2"
+        strokeWidth="1.75"
         d="M6 6l12 12M18 6L6 18"
       />
     </svg>
@@ -38,8 +38,53 @@ export function IconArrow({ className }: IconProps) {
         stroke="currentColor"
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth="2"
+        strokeWidth="1.75"
         d="M5 12h14m-7-7l7 7-7 7"
+      />
+    </svg>
+  )
+}
+
+export function IconHouse({ className }: IconProps) {
+  return (
+    <svg className={className} width="32" height="32" viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.5"
+        d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"
+      />
+    </svg>
+  )
+}
+
+export function IconChevronLeft({ className }: IconProps) {
+  return (
+    <svg className={className} width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.75"
+        d="M15 6l-6 6 6 6"
+      />
+    </svg>
+  )
+}
+
+export function IconChevronRight({ className }: IconProps) {
+  return (
+    <svg className={className} width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.75"
+        d="M9 6l6 6-6 6"
       />
     </svg>
   )

@@ -1,38 +1,52 @@
+import { Link } from 'react-router'
 import { site } from '../data/site'
 import { WhatsAppLink } from './WhatsAppLink'
 
 export function Footer() {
   return (
-    <footer className="border-t border-paper/15 bg-ink text-paper">
-      <div className="page-shell flex flex-col gap-8 pt-12 pb-8 md:flex-row md:items-end md:justify-between md:pt-16 md:pb-10">
+    <footer className="border-t border-line bg-dust text-ink">
+      <div className="page-shell flex flex-col gap-10 pt-16 pb-10 md:flex-row md:items-start md:justify-between">
         <div>
-          <p className="font-display m-0 text-3xl leading-none font-bold text-paper uppercase md:text-4xl">
-            {site.name}
-          </p>
-          <p className="mt-3 mb-0 max-w-xs font-sans text-sm tracking-wide text-paper/65">
-            {site.slogan}
+          <img
+            src="/assets/logo/logo-total-incorporacoes.png"
+            alt=""
+            width={180}
+            height={66}
+            className="h-10 w-auto"
+          />
+          <p className="mt-4 mb-0 max-w-xs text-[0.9375rem] leading-relaxed text-mute">
+            Casa própria em Belo Horizonte e Almenara. Série Recanto.
           </p>
         </div>
-        <div className="flex flex-col gap-3 font-sans text-[0.8125rem] font-semibold tracking-[0.12em] text-paper uppercase">
-          <a className="text-paper no-underline transition-colors duration-[420ms] hover:text-paper/70" href={site.phoneHref}>
+        <nav className="flex flex-col gap-3" aria-label="Rodapé">
+          <Link to="/sobre" className="text-link text-ink">
+            <span className="text-link-label">Sobre</span>
+          </Link>
+          <Link to="/empreendimentos" className="text-link text-ink">
+            <span className="text-link-label">Empreendimentos</span>
+          </Link>
+          <Link to="/contato" className="text-link text-ink">
+            <span className="text-link-label">Contato</span>
+          </Link>
+        </nav>
+        <div className="flex flex-col gap-3 text-[0.75rem] font-semibold tracking-[0.12em] text-ink uppercase">
+          <a className="text-ink no-underline hover:text-accent" href={site.phoneHref}>
             {site.phoneDisplay}
           </a>
-          <WhatsAppLink className="text-paper no-underline transition-colors duration-[420ms] hover:text-paper/70">
-            WhatsApp
-          </WhatsAppLink>
+          <WhatsAppLink className="text-ink no-underline hover:text-accent">WhatsApp</WhatsAppLink>
           <a
-            className="text-paper no-underline transition-colors duration-[420ms] hover:text-paper/70"
+            className="text-ink no-underline hover:text-accent"
             href={site.instagramUrl}
             target="_blank"
             rel="noopener noreferrer"
           >
-            Instagram {site.instagramHandle}
+            {site.instagramHandle}
           </a>
         </div>
       </div>
-      <p className="m-0 border-t border-paper/10 px-[var(--page-x)] py-5 text-center font-sans text-xs leading-relaxed text-paper/45">
-        Protótipo comercial com dados públicos. Contatos do Instagram oficial — validar internamente
-        antes de publicar.
+      <p className="m-0 border-t border-line px-[var(--page-x)] py-5 text-center text-xs leading-relaxed text-mute">
+        {site.creci}. Dados tratados conforme a LGPD. Demo com fotos reais; specs marcadas como
+        placeholder até validação.
       </p>
     </footer>
   )

@@ -20,3 +20,15 @@ if (!document.fonts) {
     value: { status: 'loaded', ready: Promise.resolve() },
   })
 }
+
+class IntersectionObserverMock {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}
+
+Object.defineProperty(window, 'IntersectionObserver', {
+  writable: true,
+  configurable: true,
+  value: IntersectionObserverMock,
+})

@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router'
 import { Footer } from './Footer'
 import { Navbar } from './Navbar'
+import { WhatsAppFab } from './WhatsAppFab'
 
 export function Layout() {
   return (
@@ -13,6 +14,7 @@ export function Layout() {
         <Outlet />
       </main>
       <Footer />
+      <WhatsAppFab />
     </div>
   )
 }
