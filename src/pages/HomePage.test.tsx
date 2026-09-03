@@ -25,5 +25,9 @@ describe('HomePage', () => {
     expect(container.textContent).toContain('Falar no WhatsApp')
     expect(container.querySelector('a[href="/contato#formulario"]')).not.toBeNull()
     expect(container.textContent).not.toContain('Jardins')
+
+    const facts = container.querySelector('dl.grid-cols-3')
+    expect(facts).not.toBeNull()
+    expect(facts?.querySelectorAll('dt.min-h-\\[2\\.75rem\\]')).toHaveLength(3)
   })
 })

@@ -111,10 +111,10 @@ export function HomePage() {
               e em Almenara. Sem portal lotado: três obras, conversa no WhatsApp.
             </p>
             {featured.facts ? (
-              <dl className="mt-10 grid grid-cols-3 gap-4 border-t border-line pt-8">
+              <dl className="mt-10 grid grid-cols-3 gap-3 border-t border-line pt-8 sm:gap-4">
                 {featured.facts.map((fact) => (
-                  <div key={fact.label}>
-                    <dt className="label text-mute">{fact.label}</dt>
+                  <div key={fact.label} className="flex min-w-0 flex-col">
+                    <dt className="label m-0 flex min-h-[2.75rem] items-end text-mute">{fact.label}</dt>
                     <dd className="font-display mt-2 mb-0 text-3xl leading-none uppercase md:text-4xl">
                       {fact.value}
                     </dd>
