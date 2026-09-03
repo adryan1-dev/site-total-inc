@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sites na agência — proposta interna</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ===========================================
+       THEME — black, white, gold
+       =========================================== */
+    :root {
+      --ink: #000000;
+      --paper: #ffffff;
+      --gold: #E29E00;
+      --muted: #6a6a6a;
+      --stage-bg: #000000;
+      --slide-bg: var(--paper);
+
+      --font-display: "Barlow", sans-serif;
+      --font-body: "Barlow", sans-serif;
+      --font-mono: "IBM Plex Mono", monospace;
+
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --duration-normal: 0.5s;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* ===========================================
+       FIXED 16:9 STAGE: MANDATORY BASE STYLES
+       Include this ENTIRE file in every presentation.
+       Slides are authored at 1920×1080 and scaled as a whole.
+       =========================================== */
+
+    /* 1. Lock the browser viewport */
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+        background: var(--stage-bg, #000);
+    }
+
+    /* 2. Full-window deck viewport */
+    .deck-viewport {
+        position: fixed;
+        inset: 0;
+        overflow: hidden;
+        background: var(--stage-bg, #000);
+    }
+
+    /* 3. Fixed 16:9 design canvas.
+       JavaScript sets transform: translate(...) scale(...). */
+    .deck-stage {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        transform-origin: 0 0;
+        background: var(--slide-bg, #fff);
+    }
+
+    /* 4. Slides stack inside the fixed stage.
+       Content must be laid out at 1920×1080, not reflowed per device. */
+    .slide {
+        position: absolute;
+        inset: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        display: block;
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+        background: var(--slide-bg, #fff);
+    }
+
+    .slide.active,
+    .slide.visible {
+        visibility: visible;
+        opacity: 1;
+        pointer-events: auto;
+        z-index: 1;
+    }
+
+    /* 5. Keep media inside authored slide bounds */
+    img,
+    video,
+    canvas,
+    svg {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    /* 6. Presentation chrome stays outside the slide design system */
+    .deck-controls {
+        position: fixed;
+        left: 50%;
+        bottom: 22px;
+        transform: translateX(-50%);
+        z-index: 1000;
+    }
+
+    /* 7. Print one fixed-size slide per page */
+    @media print {
+        html,
+        body {
+            width: 1920px;
+            height: auto;
+            overflow: visible;
+            background: #fff;
+        }
+
+        .deck-viewport {
+            position: static;
+            overflow: visible;
+            background: #fff;
+        }
+
+        .deck-stage {
+            position: static;
+            width: auto;
+            height: auto;
+            transform: none !important;
+            background: none;
+        }
+
+        .slide {
+            position: relative;
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            width: 1920px;
+            height: 1080px;
+            break-after: page;
+            page-break-after: always;
+        }
+
+        .slide:last-child {
+            break-after: auto;
+            page-break-after: auto;
+        }
+
+        .deck-controls {
+            display: none !important;
+        }
+    }
+
+    /* 8. Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.2s !important;
+        }
+    }
+
+    /* ===========================================
+       TYPE + CENTERED COLUMN
+       =========================================== */
+    body {
+      font-family: var(--font-body);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    .slide-inner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 80px 100px;
+    }
+
+    .col {
+      width: 1080px;
+      max-width: 1080px;
+    }
+
+    .kicker {
+      font-family: var(--font-mono);
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 128px;
+      letter-spacing: -0.045em;
+      line-height: 0.88;
+    }
+
+    h2 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 72px;
+      letter-spacing: -0.035em;
+      line-height: 0.94;
+    }
+
+    h3 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 32px;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .lead {
+      font-size: 28px;
+      font-weight: 400;
+      line-height: 1.35;
+      color: var(--muted);
+    }
+
+    .rule {
+      width: 72px;
+      height: 4px;
+      background: var(--gold);
+      margin: 28px 0 32px;
+    }
+
+    .pagenum {
+      position: absolute;
+      left: 50%;
+      bottom: 36px;
+      transform: translateX(-50%);
+      font-family: var(--font-mono);
+      font-size: 16px;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+    }
+
+    .s-cover .pagenum { color: rgba(255, 255, 255, 0.45); }
+
+    /* ===========================================
+       REVEAL
+       =========================================== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity var(--duration-normal) var(--ease-out-expo),
+                  transform var(--duration-normal) var(--ease-out-expo);
+    }
+
+    .slide.visible .reveal {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .slide.visible .reveal:nth-child(1) { transition-delay: 0.05s; }
+    .slide.visible .reveal:nth-child(2) { transition-delay: 0.12s; }
+    .slide.visible .reveal:nth-child(3) { transition-delay: 0.19s; }
+    .slide.visible .reveal:nth-child(4) { transition-delay: 0.26s; }
+    .slide.visible .reveal:nth-child(5) { transition-delay: 0.33s; }
+    .slide.visible .reveal:nth-child(6) { transition-delay: 0.4s; }
+
+    /* ===========================================
+       SLIDE 01 COVER
+       =========================================== */
+    .s-cover {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .s-cover .col { text-align: center; }
+
+    .s-cover h1 { color: var(--paper); }
+
+    .s-cover .lead {
+      color: rgba(255, 255, 255, 0.72);
+      max-width: 28ch;
+      margin: 0 auto;
+    }
+
+    .s-cover .rule { margin-left: auto; margin-right: auto; }
+
+    .facts {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0;
+      margin-top: 56px;
+      border-top: 1px solid rgba(226, 158, 0, 0.45);
+    }
+
+    .facts p {
+      padding: 28px 24px 0;
+      font-size: 22px;
+      line-height: 1.35;
+    }
+
+    .facts p + p { border-left: 1px solid rgba(226, 158, 0, 0.45); }
+
+    .facts .n {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.16em;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+
+    /* ===========================================
+       SLIDE 02 WHY + PRODUCT
+       =========================================== */
+    .why-list {
+      display: grid;
+      gap: 22px;
+      margin-top: 36px;
+    }
+
+    .why-item {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .why-item .n {
+      font-family: var(--font-mono);
+      font-size: 18px;
+      color: var(--gold);
+      padding-top: 6px;
+    }
+
+    .why-item p {
+      font-size: 24px;
+      line-height: 1.35;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      margin-top: 48px;
+      padding-top: 36px;
+      border-top: 1px solid #e5e5e5;
+    }
+
+    .slash-list {
+      list-style: none;
+      margin-top: 16px;
+    }
+
+    .slash-list li {
+      font-size: 26px;
+      font-weight: 500;
+      line-height: 1.45;
+    }
+
+    .slash-list li::before {
+      content: "/ ";
+      color: var(--gold);
+    }
+
+    /* ===========================================
+       SLIDE 03 PRICE + SPLIT
+       =========================================== */
+    .table {
+      display: grid;
+      grid-template-columns: 1.2fr 1.2fr 0.8fr;
+      margin-top: 32px;
+      border-top: 1px solid var(--ink);
+    }
+
+    .cell {
+      padding: 18px 16px;
+      font-size: 24px;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .cell.th {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
+
+    .cell.hl { background: #fff8e6; }
+
+    .split-money {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 36px;
+    }
+
+    .money-card {
+      border: 1px solid #e5e5e5;
+      padding: 28px 32px;
+    }
+
+    .money-card .pct {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 72px;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--gold);
+    }
+
+    .money-card p {
+      font-size: 22px;
+      line-height: 1.35;
+      margin-top: 8px;
+      color: var(--muted);
+    }
+
+    .ex {
+      margin-top: 28px;
+      font-size: 24px;
+    }
+
+    .ex strong { font-weight: 700; }
+
+    /* ===========================================
+       SLIDE 04 DECISION
+       =========================================== */
+    .s-end {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .s-end .col { text-align: center; }
+
+    .s-end h2 { color: var(--paper); }
+
+    .s-end .slash-list {
+      display: inline-block;
+      text-align: left;
+      margin-top: 36px;
+    }
+
+    .s-end .slash-list li {
+      font-size: 32px;
+      color: var(--paper);
+    }
+
+    .s-end .rule { margin-left: auto; margin-right: auto; }
+
+    .next {
+      margin-top: 48px;
+      font-size: 26px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .next .label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+
+    /* ===========================================
+       DECK CONTROLS
+       =========================================== */
+    .deck-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(0, 0, 0, 0.72);
+      border: 1px solid rgba(226, 158, 0, 0.4);
+      padding: 8px 14px;
+    }
+
+    .nav-dot {
+      width: 10px;
+      height: 10px;
+      border: 1px solid var(--gold);
+      background: transparent;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .nav-dot.on { background: var(--gold); }
+
+    .deck-count {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: var(--paper);
+      margin-left: 8px;
+    }
+
+    /* ===========================================
+       INLINE EDIT
+       =========================================== */
+    .edit-hotzone {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 72px;
+      height: 72px;
+      z-index: 1100;
+    }
+
+    .edit-toggle {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      z-index: 1101;
+      opacity: 0;
+      pointer-events: none;
+      background: var(--ink);
+      color: var(--paper);
+      border: 1px solid var(--gold);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 10px 14px;
+      cursor: pointer;
+    }
+
+    .edit-toggle.show,
+    .edit-toggle.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    body.editing [contenteditable="true"] {
+      outline: 1px dashed rgba(226, 158, 0, 0.7);
+      outline-offset: 4px;
+      cursor: text;
+    }
+  </style>
+</head>
+<body>
+  <div class="edit-hotzone"></div>
+  <button class="edit-toggle" id="editToggle" type="button" title="Modo edição (E)">Editar</button>
+
+  <div class="deck-viewport">
+    <main class="deck-stage" id="deckStage">
+
+      <!-- === SLIDE 01 COVER + PEDIDO === -->
+      <section class="slide s-cover active" data-label="Capa">
+        <div class="slide-inner">
+          <div class="col">
+            <span class="kicker reveal">proposta interna · piloto</span>
+            <h1 class="reveal">sites<br>na agência</h1>
+            <div class="rule reveal"></div>
+            <p class="lead reveal">Incluir institucional e landing no portfólio. Vendidos sozinhos ou com Social Media. Sem contratação agora. Pacotes atuais ficam iguais.</p>
+            <div class="facts">
+              <p class="reveal"><span class="n">01</span>Pacotes atuais ficam iguais.</p>
+              <p class="reveal"><span class="n">02</span>Sem contratação agora.</p>
+              <p class="reveal"><span class="n">03</span>Produção comigo. 1 a 2 jobs por mês.</p>
+            </div>
+          </div>
+        </div>
+        <div class="pagenum">01 / 04</div>
+      </section>
+
+      <!-- === SLIDE 02 POR QUE + PRODUTO === -->
+      <section class="slide" data-label="Oferta">
+        <div class="slide-inner">
+          <div class="col">
+            <span class="kicker reveal">por que agora</span>
+            <h2 class="reveal">a carteira já pede site.</h2>
+            <div class="why-list">
+              <div class="why-item">
+                <span class="n reveal">01</span>
+                <div>
+                  <h3 class="reveal">a carteira já existe</h3>
+                  <p class="reveal">Cliente, conta e conteúdo. O site fecha o ciclo.</p>
+                </div>
+              </div>
+              <div class="why-item">
+                <span class="n reveal">02</span>
+                <div>
+                  <h3 class="reveal">a oferta está furada</h3>
+                  <p class="reveal">Tem cliente de Social Media sem site. Essa venda está saindo.</p>
+                </div>
+              </div>
+              <div class="why-item">
+                <span class="n reveal">03</span>
+                <div>
+                  <h3 class="reveal">o risco é baixo</h3>
+                  <p class="reveal">Demo pronta. Começa com piloto, sem estrutura nova.</p>
+                </div>
+              </div>
+            </div>
+            <div class="split">
+              <div>
+                <span class="kicker reveal">entra no serviço</span>
+                <ul class="slash-list">
+                  <li class="reveal">site institucional</li>
+                  <li class="reveal">landing page</li>
+                  <li class="reveal">site + métricas</li>
+                </ul>
+              </div>
+              <div>
+                <span class="kicker reveal">fica de fora</span>
+                <ul class="slash-list">
+                  <li class="reveal">e-commerce</li>
+                  <li class="reveal">sistema ou área logada</li>
+                  <li class="reveal">domínio e hospedagem</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pagenum">02 / 04</div>
+      </section>
+
+      <!-- === SLIDE 03 PREÇO + DIVISÃO === -->
+      <section class="slide" data-label="Preço">
+        <div class="slide-inner">
+          <div class="col">
+            <span class="kicker reveal">números</span>
+            <h2 class="reveal">faixa para discutir</h2>
+            <p class="lead reveal" style="margin-top:12px">Job simples, briefing fechado. Fora disso, orça à parte. O pacote que eu venderia primeiro é site + métricas.</p>
+            <div class="table">
+              <div class="cell th">produto</div>
+              <div class="cell th">faixa</div>
+              <div class="cell th">prazo</div>
+              <div class="cell">institucional</div>
+              <div class="cell">R$ 1.000 – 1.800</div>
+              <div class="cell">15–20 dias</div>
+              <div class="cell">landing page</div>
+              <div class="cell">R$ 700 – 1.400</div>
+              <div class="cell">7–12 dias</div>
+              <div class="cell hl">site + métricas</div>
+              <div class="cell hl">R$ 1.400 – 2.400</div>
+              <div class="cell hl">+2–3 dias</div>
+              <div class="cell">manutenção</div>
+              <div class="cell">R$ 150 – 250 / mês</div>
+              <div class="cell">até 2h</div>
+            </div>
+            <div class="split-money">
+              <div class="money-card">
+                <span class="kicker">produção</span>
+                <div class="pct">60</div>
+                <p>Briefing, design, desenvolvimento, mobile, revisão e publicação.</p>
+              </div>
+              <div class="money-card">
+                <span class="kicker">agência</span>
+                <div class="pct">40</div>
+                <p>Contrato, nota, relacionamento. O cliente continua da casa.</p>
+              </div>
+            </div>
+            <p class="ex">Num institucional de <strong>R$ 1.500</strong>: R$ 900 produção · R$ 600 agência. Piloto no início. Revisar depois de 3 jobs.</p>
+          </div>
+        </div>
+        <div class="pagenum">03 / 04</div>
+      </section>
+
+      <!-- === SLIDE 04 DECISÃO === -->
+      <section class="slide s-end" data-label="Decisão">
+        <div class="slide-inner">
+          <div class="col">
+            <span class="kicker reveal">alinhar agora</span>
+            <h2 class="reveal">três coisas.</h2>
+            <div class="rule reveal"></div>
+            <ul class="slash-list">
+              <li class="reveal">60/40 no piloto</li>
+              <li class="reveal">primeiro cliente e uso da demo</li>
+              <li class="reveal">quem aprova extra e retrabalho</li>
+            </ul>
+            <p class="next reveal"><span class="label">próximo passo</span>Fechar o piloto e apresentar o serviço a um cliente.</p>
+          </div>
+        </div>
+        <div class="pagenum">04 / 04</div>
+      </section>
+
+    </main>
+  </div>
+
+  <nav class="deck-controls" aria-label="Navegação">
+    <button class="nav-dot on" type="button" data-i="0" aria-label="Slide 1"></button>
+    <button class="nav-dot" type="button" data-i="1" aria-label="Slide 2"></button>
+    <button class="nav-dot" type="button" data-i="2" aria-label="Slide 3"></button>
+    <button class="nav-dot" type="button" data-i="3" aria-label="Slide 4"></button>
+    <span class="deck-count" id="deckCount">01 / 04</span>
+  </nav>
+
+  <script>
+    /* ===========================================
+       SLIDE PRESENTATION CONTROLLER
+       =========================================== */
+    class SlidePresentation {
+      constructor() {
+        this.slides = document.querySelectorAll(".slide");
+        this.dots = document.querySelectorAll(".nav-dot");
+        this.count = document.getElementById("deckCount");
+        this.currentSlide = 0;
+        this.stage = document.getElementById("deckStage");
+        this.touchX = null;
+        this.wheelLock = false;
+        this.setupStageScale();
+        this.setupKeyboardNav();
+        this.setupTouchNav();
+        this.setupWheelNav();
+        this.setupDots();
+        const fromHash = Number(location.hash.replace("#", "")) - 1;
+        this.showSlide(Number.isFinite(fromHash) && fromHash >= 0 ? fromHash : 0);
+        window.addEventListener("hashchange", () => {
+          const i = Number(location.hash.replace("#", "")) - 1;
+          if (Number.isFinite(i)) this.showSlide(i);
+        });
+      }
+
+      setupStageScale() {
+        const scale = () => {
+          const chrome = 56;
+          const factor = Math.min(window.innerWidth / 1920, (window.innerHeight - chrome) / 1080);
+          const x = (window.innerWidth - 1920 * factor) / 2;
+          const y = (window.innerHeight - chrome - 1080 * factor) / 2;
+          this.stage.style.transform = `translate(${x}px, ${y}px) scale(${factor})`;
+        };
+        scale();
+        window.addEventListener("resize", scale);
+      }
+
+      setupKeyboardNav() {
+        document.addEventListener("keydown", (e) => {
+          if (e.target.getAttribute("contenteditable") === "true") return;
+          if (["ArrowRight", "ArrowDown", "PageDown", " "].includes(e.key)) {
+            e.preventDefault();
+            this.showSlide(this.currentSlide + 1);
+          }
+          if (["ArrowLeft", "ArrowUp", "PageUp"].includes(e.key)) {
+            e.preventDefault();
+            this.showSlide(this.currentSlide - 1);
+          }
+          if (e.key === "Home") this.showSlide(0);
+          if (e.key === "End") this.showSlide(this.slides.length - 1);
+        });
+      }
+
+      setupTouchNav() {
+        document.addEventListener("touchstart", (e) => {
+          this.touchX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        document.addEventListener("touchend", (e) => {
+          if (this.touchX == null) return;
+          const dx = e.changedTouches[0].screenX - this.touchX;
+          if (Math.abs(dx) > 50) {
+            this.showSlide(this.currentSlide + (dx < 0 ? 1 : -1));
+          }
+          this.touchX = null;
+        }, { passive: true });
+      }
+
+      setupWheelNav() {
+        window.addEventListener("wheel", (e) => {
+          if (this.wheelLock) return;
+          if (Math.abs(e.deltaY) < 20) return;
+          this.wheelLock = true;
+          this.showSlide(this.currentSlide + (e.deltaY > 0 ? 1 : -1));
+          setTimeout(() => { this.wheelLock = false; }, 700);
+        }, { passive: true });
+      }
+
+      setupDots() {
+        this.dots.forEach((dot) => {
+          dot.addEventListener("click", () => {
+            this.showSlide(Number(dot.dataset.i));
+          });
+        });
+      }
+
+      showSlide(index) {
+        this.currentSlide = Math.max(0, Math.min(index, this.slides.length - 1));
+        this.slides.forEach((slide, i) => {
+          slide.classList.toggle("active", i === this.currentSlide);
+          slide.classList.toggle("visible", i === this.currentSlide);
+        });
+        this.dots.forEach((dot, i) => {
+          dot.classList.toggle("on", i === this.currentSlide);
+        });
+        const n = String(this.currentSlide + 1).padStart(2, "0");
+        const t = String(this.slides.length).padStart(2, "0");
+        this.count.textContent = n + " / " + t;
+        const hash = "#" + (this.currentSlide + 1);
+        if (location.hash !== hash) history.replaceState(null, "", hash);
+      }
+    }
+
+    const deck = new SlidePresentation();
+
+    /* ===========================================
+       INLINE TEXT EDITING
+       Hover top-left or press E. Ctrl+S saves a copy.
+       =========================================== */
+    const editor = {
+      isActive: false,
+      storageKey: "proposta-web-agencia-edit",
+      toggleEditMode() {
+        this.isActive = !this.isActive;
+        document.body.classList.toggle("editing", this.isActive);
+        document.getElementById("editToggle").classList.toggle("active", this.isActive);
+        document.querySelectorAll("h1, h2, h3, p, li").forEach((el) => {
+          el.setAttribute("contenteditable", this.isActive ? "true" : "false");
+        });
+      },
+      persist() {
+        const html = document.querySelector(".deck-stage").innerHTML;
+        localStorage.setItem(this.storageKey, html);
+      },
+      download() {
+        this.persist();
+        const blob = new Blob([document.documentElement.outerHTML], { type: "text/html" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "proposta-desenvolvimento-web.html";
+        a.click();
+      }
+    };
+
+    const editToggle = document.getElementById("editToggle");
+    const hotzone = document.querySelector(".edit-hotzone");
+    let hideTimeout = null;
+
+    editToggle.addEventListener("click", () => editor.toggleEditMode());
+
+    hotzone.addEventListener("mouseenter", () => {
+      clearTimeout(hideTimeout);
+      editToggle.classList.add("show");
+    });
+    hotzone.addEventListener("mouseleave", () => {
+      hideTimeout = setTimeout(() => {
+        if (!editor.isActive) editToggle.classList.remove("show");
+      }, 400);
+    });
+    editToggle.addEventListener("mouseenter", () => clearTimeout(hideTimeout));
+    editToggle.addEventListener("mouseleave", () => {
+      hideTimeout = setTimeout(() => {
+        if (!editor.isActive) editToggle.classList.remove("show");
+      }, 400);
+    });
+    hotzone.addEventListener("click", () => editor.toggleEditMode());
+
+    document.addEventListener("keydown", (e) => {
+      if ((e.key === "e" || e.key === "E") && !e.target.getAttribute("contenteditable")) {
+        editor.toggleEditMode();
+      }
+      if ((e.ctrlKey || e.metaKey) && e.key === "s") {
+        e.preventDefault();
+        editor.download();
+      }
+    });
+  </script>
+</body>
+</html>
