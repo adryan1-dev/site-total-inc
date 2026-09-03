@@ -12,5 +12,6 @@ export function shouldInitClarity(
 export function initClarity() {
   const projectId = import.meta.env.VITE_CLARITY_PROJECT_ID?.trim() || CLARITY_PROJECT_ID
   if (!shouldInitClarity(projectId, import.meta.env.MODE)) return
+  if ('clarity' in window) return
   Clarity.init(projectId)
 }
