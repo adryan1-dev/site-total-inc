@@ -13,7 +13,7 @@ const GalleryDialog = lazy(() =>
   import('../components/GalleryDialog').then((module) => ({ default: module.GalleryDialog })),
 )
 
-const heroSrcSet = photoSrcSet(featured.cover.src, [640, 960, 1280], featured.cover.width)
+const heroSrcSet = photoSrcSet(featured.cover.src, [480, 640, 960, 1280])
 
 export function HomePage() {
   const cardsRef = useRef<HTMLDivElement>(null)
@@ -32,7 +32,7 @@ export function HomePage() {
     <div>
       <section className="relative z-0 isolate min-h-[calc(100svh-var(--header-h))] bg-ink text-paper" data-hero>
         <img
-          src="/assets/recantos/horizonte/hero-960.webp"
+          src="/assets/recantos/horizonte/hero-640.webp"
           srcSet={heroSrcSet}
           sizes="100vw"
           alt={featured.cover.alt}
@@ -125,8 +125,8 @@ export function HomePage() {
           </div>
           <div className="photo-frame aspect-[4/5] lg:col-span-5 lg:col-start-8" data-reveal data-stagger="1">
             <img
-              src="/assets/recantos/horizonte/fachada-2-960.webp"
-              srcSet={photoSrcSet('/assets/recantos/horizonte/fachada-2.webp', [640, 960], 1600)}
+              src="/assets/recantos/horizonte/fachada-2-640.webp"
+              srcSet={photoSrcSet('/assets/recantos/horizonte/fachada-2.webp', [480, 640, 960])}
               sizes="(min-width: 1024px) 400px, 100vw"
               alt="Fachada do Recanto do Horizonte."
               width={1600}

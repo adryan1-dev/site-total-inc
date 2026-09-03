@@ -14,7 +14,7 @@ describe('HomePage', () => {
     expect(container.querySelector('[data-hero] .page-shell')).not.toBeNull()
     expect(container.querySelector('[data-featured] .page-shell')).not.toBeNull()
     expect(
-      container.querySelector('img[src="/assets/recantos/horizonte/hero-960.webp"]'),
+      container.querySelector('img[src="/assets/recantos/horizonte/hero-640.webp"]'),
     ).not.toBeNull()
     expect(container.querySelector('video')).toBeNull()
     expect(container.querySelector('.hero-search')).not.toBeNull()

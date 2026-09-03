@@ -25,26 +25,51 @@
       content="https://site-total-inc.vercel.app/assets/recantos/horizonte/hero-1280.webp"
     />
     <meta name="twitter:card" content="summary_large_image" />
-    <link
-      rel="preload"
-      as="font"
-      type="font/woff2"
-      href="/fonts/archivo-latin-wdth-normal.woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      as="font"
-      type="font/woff2"
-      href="/fonts/montserrat-latin-wght-normal.woff2"
-      crossorigin
-    />
+    <style>
+      html {
+        color-scheme: light;
+      }
+      body {
+        margin: 0;
+        background: #ffffff;
+        color: #373435;
+        font-family: 'Montserrat Variable', Montserrat, ui-sans-serif, system-ui, sans-serif;
+      }
+      #root {
+        min-height: 100svh;
+      }
+      .boot-hero {
+        position: relative;
+        isolation: isolate;
+        min-height: 100svh;
+        background: #373435;
+        color: #ffffff;
+        overflow: hidden;
+      }
+      .boot-hero img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .boot-hero__shade {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgb(55 52 53 / 0.92) 0%,
+          rgb(55 52 53 / 0.45) 42%,
+          rgb(55 52 53 / 0.2) 100%
+        );
+      }
+    </style>
     <link
       rel="preload"
       as="image"
       type="image/webp"
-      href="/assets/recantos/horizonte/hero-960.webp"
-      imagesrcset="/assets/recantos/horizonte/hero-640.webp 640w, /assets/recantos/horizonte/hero-960.webp 960w, /assets/recantos/horizonte/hero-1280.webp 1280w, /assets/recantos/horizonte/hero.webp 1920w"
+      href="/assets/recantos/horizonte/hero-640.webp"
+      imagesrcset="/assets/recantos/horizonte/hero-480.webp 480w, /assets/recantos/horizonte/hero-640.webp 640w, /assets/recantos/horizonte/hero-960.webp 960w"
       imagesizes="100vw"
       fetchpriority="high"
     />
@@ -101,7 +126,21 @@
       FIRST VIEWPORT: Foto Horizonte full-bleed, nome condensado, chip Lançamento, dois CTAs, busca com trilho vermelho à esquerda.
       FORM: Even na estrutura, Tegra no chrome quieto, Oxford na faixa institucional. FINISH: desktop e mobile nas quatro rotas.
     -->
-    <div id="root"></div>
+    <div id="root">
+      <section class="boot-hero" aria-hidden="true">
+        <img
+          src="/assets/recantos/horizonte/hero-640.webp"
+          srcset="/assets/recantos/horizonte/hero-480.webp 480w, /assets/recantos/horizonte/hero-640.webp 640w, /assets/recantos/horizonte/hero-960.webp 960w, /assets/recantos/horizonte/hero-1280.webp 1280w"
+          sizes="100vw"
+          width="1920"
+          height="1600"
+          alt=""
+          decoding="async"
+          fetchpriority="high"
+        />
+        <div class="boot-hero__shade"></div>
+      </section>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
