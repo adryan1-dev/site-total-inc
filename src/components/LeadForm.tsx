@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { developments } from '../data/developments'
 import { submitLeadToGoogleForm } from '../lib/google-form'
-import { whatsappHref } from '../data/site'
+import { WhatsAppLink } from './WhatsAppLink'
 
 type Fields = {
   name: string
@@ -49,7 +49,7 @@ export function LeadForm() {
       await submitLeadToGoogleForm(fields)
       setSent(true)
     } catch {
-      setSubmitError('Não foi possível enviar. Tente de novo ou fale no WhatsApp.')
+      setSubmitError('Não foi possível enviar. Tente de novo.')
     } finally {
       setSubmitting(false)
     }
@@ -70,12 +70,11 @@ export function LeadForm() {
           Obrigado, {fields.name.split(' ')[0]}.
         </h2>
         <p className="mt-4 mb-0 max-w-md text-[1.125rem] leading-relaxed text-mute">
-          A equipe entra em contato neste telefone. Se preferir agora, o WhatsApp já leva o seu
-          recado.
+          O recado já foi para o formulário do piloto. O WhatsApp da empresa não abre daqui.
         </p>
-        <a href={whatsappHref(text)} className="cta-primary mt-8" target="_blank" rel="noopener noreferrer">
+        <WhatsAppLink variant="primary" message={text} className="mt-8">
           Continuar no WhatsApp
-        </a>
+        </WhatsAppLink>
       </div>
     )
   }

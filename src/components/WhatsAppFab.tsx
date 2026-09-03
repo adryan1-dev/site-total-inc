@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
-import { messages, whatsappHref } from '../data/site'
+import { messages } from '../data/site'
 import { IconWhatsApp } from './Icons'
+import { WhatsAppDemoDialog } from './WhatsAppDemoDialog'
 
 export function WhatsAppFab() {
   const [on, setOn] = useState(false)
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     const onScroll = () => setOn(window.scrollY > 400)
@@ -13,14 +15,16 @@ export function WhatsAppFab() {
   }, [])
 
   return (
-    <a
-      href={whatsappHref(messages.general)}
-      className={`fab-wa ${on ? 'is-on' : ''}`}
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <IconWhatsApp className="h-6 w-6" />
-      <span className="sr-only">Falar no WhatsApp (abre numa nova aba)</span>
-    </a>
+    <>
+      <button
+        type="button"
+        className={`fab-wa ${on ? 'is-on' : ''}`}
+        onClick={() => setOpen(true)}
+      >
+        <IconWhatsApp className="h-6 w-6" />
+        <span className="sr-only">Abrir o WhatsApp do protótipo</span>
+      </button>
+      {open ? <WhatsAppDemoDialog message={messages.general} onClose={() => setOpen(false)} /> : null}
+    </>
   )
 }

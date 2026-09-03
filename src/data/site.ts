@@ -3,15 +3,10 @@ export const site = {
   slogan: 'Construindo seu Lar.',
   phoneDisplay: '(31) 3568-6227',
   phoneHref: 'tel:+553135686227',
-  whatsappDigits: '553197653008',
   instagramUrl: 'https://www.instagram.com/totalincorporacoes/',
   instagramHandle: '@totalincorporacoes',
   creci: 'CRECI/MG — a confirmar',
 } as const
-
-export function whatsappHref(message: string) {
-  return `https://wa.me/${site.whatsappDigits}?text=${encodeURIComponent(message)}`
-}
 
 export const messages = {
   general: 'Olá, tenho interesse nos empreendimentos da Total Incorporações.',

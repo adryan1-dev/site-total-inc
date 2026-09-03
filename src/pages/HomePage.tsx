@@ -135,8 +135,8 @@ export function HomePage() {
               Fale com a equipe.
             </h2>
             <p className="mt-4 mb-0 max-w-md text-[1.125rem] leading-relaxed text-mute">
-              O WhatsApp oficial do Instagram já abre com o Recanto certo. Formulário no contato, se
-              preferir deixar recado.
+              Neste piloto o WhatsApp mostra o recado que iria na conversa. O formulário é o que
+              guarda a mensagem.
             </p>
           </div>
           <div className="flex flex-col gap-4 sm:flex-row">

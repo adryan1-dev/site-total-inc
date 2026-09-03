@@ -18,7 +18,7 @@ export function ContactPage() {
             Um recado. Ou o WhatsApp.
           </h1>
           <p className="mt-6 mb-0 max-w-[36ch] text-[1.125rem] leading-relaxed text-mute">
-            Telefone e WhatsApp são os do Instagram oficial. Sem mapa vazio — o caminho é conversa.
+            O WhatsApp da empresa não abre daqui. Sem mapa vazio — o recado fica no formulário.
           </p>
           <ul className="mt-10 mb-0 list-none p-0">
             <li className="border-t border-line py-4">

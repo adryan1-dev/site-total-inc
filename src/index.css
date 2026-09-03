@@ -521,6 +521,36 @@ html.is-nav-open .fab-wa {
   outline: none;
 }
 
+.wa-action {
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.wa-demo-dialog {
+  width: min(32rem, calc(100vw - 2rem));
+}
+
+.wa-demo-dialog::backdrop {
+  background: rgb(55 52 53 / 0.45);
+}
+
+.wa-demo-dialog:focus-visible {
+  outline: none;
+}
+
+.wa-demo-quote {
+  margin: 1.5rem 0 0;
+  padding: 1rem 1.1rem;
+  border-left: 2px solid var(--color-accent);
+  background: var(--color-dust);
+  color: var(--color-ink);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
 .fab-wa {
   position: fixed;
   right: 1.25rem;
@@ -531,6 +561,8 @@ html.is-nav-open .fab-wa {
   justify-content: center;
   width: 3.5rem;
   height: 3.5rem;
+  border: 0;
+  cursor: pointer;
   background: var(--color-accent);
   color: var(--color-paper);
   text-decoration: none;
