@@ -25,4 +25,12 @@ describe('SEO crawl files', () => {
     expect(sitemap).toContain('https://site-total-inc.vercel.app/')
     expect(sitemap).toContain('https://site-total-inc.vercel.app/empreendimentos')
   })
+
+  it('ships an llms.txt with required H1 and markdown links', () => {
+    const llms = readFileSync(resolve(process.cwd(), 'public/llms.txt'), 'utf8')
+
+    expect(llms.startsWith('# Total Incorporações')).toBe(true)
+    expect(llms).toContain('[Home](https://site-total-inc.vercel.app/)')
+    expect(llms).toContain('[Empreendimentos](https://site-total-inc.vercel.app/empreendimentos)')
+  })
 })

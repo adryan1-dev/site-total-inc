@@ -1,0 +1,17 @@
+# Total Incorporações
+
+> Incorporadora em Belo Horizonte e Almenara. Série Recanto de habitação; conversão pelo WhatsApp e formulário de contato.
+
+Site comercial da Total Incorporações com portfólio público dos empreendimentos Recanto do Horizonte, Recanto da Mata e Recanto dos Alpes.
+
+## Páginas
+
+- [Home](https://site-total-inc.vercel.app/): Recanto do Horizonte em destaque e visão da série Recanto
+- [Sobre](https://site-total-inc.vercel.app/sobre): Quem é a Total Incorporações
+- [Empreendimentos](https://site-total-inc.vercel.app/empreendimentos): Catálogo com fotos reais dos Recantos
+- [Contato](https://site-total-inc.vercel.app/contato): Telefone, Instagram e formulário de recado
+
+## Optional
+
+- [Sitemap](https://site-total-inc.vercel.app/sitemap.xml): Mapa de URLs públicas
+- [Instagram](https://www.instagram.com/totalincorporacoes/): Canal oficial @totalincorporacoes
