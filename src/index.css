@@ -525,8 +525,13 @@ html.is-nav-open .fab-wa {
   font: inherit;
   letter-spacing: inherit;
   text-transform: inherit;
-  color: inherit;
   cursor: pointer;
+}
+
+.wa-action.cta-primary,
+.wa-action.cta-primary:hover,
+.wa-action.cta-primary:focus-visible {
+  color: var(--color-paper);
 }
 
 .wa-demo-dialog {
