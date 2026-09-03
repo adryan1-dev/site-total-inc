@@ -29,7 +29,7 @@ export function Footer() {
             <span className="text-link-label">Contato</span>
           </Link>
         </nav>
-        <div className="flex flex-col gap-3 text-[0.75rem] font-semibold tracking-[0.12em] text-ink uppercase">
+        <div className="flex flex-col items-start gap-3 text-left text-[0.75rem] font-semibold tracking-[0.12em] text-ink uppercase">
           <a className="text-ink no-underline hover:text-accent" href={site.phoneHref}>
             {site.phoneDisplay}
           </a>

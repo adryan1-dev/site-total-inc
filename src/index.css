@@ -525,7 +525,16 @@ html.is-nav-open .fab-wa {
   font: inherit;
   letter-spacing: inherit;
   text-transform: inherit;
+  color: inherit;
+  text-align: inherit;
   cursor: pointer;
+}
+
+.wa-action:not(.cta-primary) {
+  display: inline;
+  padding: 0;
+  border: 0;
+  background: none;
 }
 
 .wa-action.cta-primary,
