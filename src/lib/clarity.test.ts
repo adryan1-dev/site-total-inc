@@ -19,5 +19,6 @@ describe('Clarity tracking snippet', () => {
 
     expect(html).toContain('https://www.clarity.ms/tag/')
     expect(html).toContain('yc8d2ig6u0')
+    expect(html).toMatch(/pointerdown|requestIdleCallback|setTimeout\(boot/)
   })
 })

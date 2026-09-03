@@ -1,6 +1,7 @@
 import { Link } from 'react-router'
 import { WhatsAppLink } from '../components/WhatsAppLink'
 import { messages } from '../data/site'
+import { photoSrcSet } from '../lib/images'
 import { usePageMeta } from '../lib/meta'
 
 export function AboutPage() {
@@ -34,10 +35,14 @@ export function AboutPage() {
         </div>
         <div className="photo-frame aspect-[4/5] lg:col-span-5 lg:col-start-8">
           <img
-            src="/assets/recantos/mata/fachada.webp"
+            src="/assets/recantos/mata/fachada-960.webp"
+            srcSet={photoSrcSet('/assets/recantos/mata/fachada.webp', [640, 960], 1600)}
+            sizes="(min-width: 1024px) 400px, 100vw"
             alt="Fachada do Recanto da Mata, em Jaqueline."
             width={1600}
             height={1600}
+            loading="lazy"
+            decoding="async"
             className="size-full object-cover"
           />
         </div>

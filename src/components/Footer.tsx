@@ -8,10 +8,12 @@ export function Footer() {
       <div className="page-shell flex flex-col gap-10 pt-16 pb-10 md:flex-row md:items-start md:justify-between">
         <div>
           <img
-            src="/assets/logo/logo-total-incorporacoes.png"
+            src={site.logo.src}
             alt=""
-            width={180}
-            height={66}
+            width={site.logo.width}
+            height={site.logo.height}
+            loading="lazy"
+            decoding="async"
             className="h-10 w-auto"
           />
           <p className="mt-4 mb-0 max-w-xs text-[0.9375rem] leading-relaxed text-mute">

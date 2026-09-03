@@ -1,13 +1,19 @@
-import { useRef, useState } from 'react'
+import { lazy, Suspense, useRef, useState } from 'react'
 import { Link } from 'react-router'
-import { GalleryDialog } from '../components/GalleryDialog'
 import { HeroSearch } from '../components/HeroSearch'
 import { PropertyCard } from '../components/PropertyCard'
 import { WhatsAppLink } from '../components/WhatsAppLink'
 import { developments, featured, type Development } from '../data/developments'
 import { messages, site } from '../data/site'
+import { photoSrcSet } from '../lib/images'
 import { useReveal } from '../lib/reveal'
 import { usePageMeta } from '../lib/meta'
+
+const GalleryDialog = lazy(() =>
+  import('../components/GalleryDialog').then((module) => ({ default: module.GalleryDialog })),
+)
+
+const heroSrcSet = photoSrcSet(featured.cover.src, [640, 960, 1280], featured.cover.width)
 
 export function HomePage() {
   const cardsRef = useRef<HTMLDivElement>(null)
@@ -26,7 +32,9 @@ export function HomePage() {
     <div>
       <section className="relative z-0 isolate min-h-[calc(100svh-var(--header-h))] bg-ink text-paper" data-hero>
         <img
-          src={featured.cover.src}
+          src="/assets/recantos/horizonte/hero-960.webp"
+          srcSet={heroSrcSet}
+          sizes="100vw"
           alt={featured.cover.alt}
           width={featured.cover.width}
           height={featured.cover.height}
@@ -117,11 +125,14 @@ export function HomePage() {
           </div>
           <div className="photo-frame aspect-[4/5] lg:col-span-5 lg:col-start-8" data-reveal data-stagger="1">
             <img
-              src="/assets/recantos/horizonte/fachada-2.webp"
+              src="/assets/recantos/horizonte/fachada-2-960.webp"
+              srcSet={photoSrcSet('/assets/recantos/horizonte/fachada-2.webp', [640, 960], 1600)}
+              sizes="(min-width: 1024px) 400px, 100vw"
               alt="Fachada do Recanto do Horizonte."
               width={1600}
               height={1333}
               loading="lazy"
+              decoding="async"
               className="size-full object-cover"
             />
           </div>
@@ -150,12 +161,16 @@ export function HomePage() {
         </div>
       </section>
 
-      <GalleryDialog
-        item={open}
-        index={index}
-        onIndex={setIndex}
-        onClose={() => setOpen(null)}
-      />
+      {open ? (
+        <Suspense fallback={null}>
+          <GalleryDialog
+            item={open}
+            index={index}
+            onIndex={setIndex}
+            onClose={() => setOpen(null)}
+          />
+        </Suspense>
+      ) : null}
     </div>
   )
 }

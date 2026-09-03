@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" type="image/png" href="/assets/logo/logo-mark.png" />
+    <link rel="icon" type="image/webp" href="/assets/logo/logo-mark.webp" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#ffffff" />
     <title>Total Incorporações — Construindo seu Lar. Belo Horizonte</title>
@@ -11,6 +11,7 @@
       name="description"
       content="Incorporadora em Belo Horizonte. Empreendimentos Recanto para quem busca a casa própria. Fale com a equipe pelo WhatsApp."
     />
+    <link rel="canonical" href="https://site-total-inc.vercel.app/" />
     <meta property="og:title" content="Total Incorporações — Construindo seu Lar." />
     <meta
       property="og:description"
@@ -18,8 +19,54 @@
     />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_BR" />
-    <meta property="og:image" content="/assets/recantos/horizonte/hero.webp" />
-    <link rel="preload" as="image" href="/assets/recantos/horizonte/hero.webp" fetchpriority="high" />
+    <meta property="og:url" content="https://site-total-inc.vercel.app/" />
+    <meta
+      property="og:image"
+      content="https://site-total-inc.vercel.app/assets/recantos/horizonte/hero-1280.webp"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/archivo-latin-wdth-normal.woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/montserrat-latin-wght-normal.woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      as="image"
+      type="image/webp"
+      href="/assets/recantos/horizonte/hero-960.webp"
+      imagesrcset="/assets/recantos/horizonte/hero-640.webp 640w, /assets/recantos/horizonte/hero-960.webp 960w, /assets/recantos/horizonte/hero-1280.webp 1280w, /assets/recantos/horizonte/hero.webp 1920w"
+      imagesizes="100vw"
+      fetchpriority="high"
+    />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "RealEstateAgent",
+        "name": "Total Incorporações",
+        "url": "https://site-total-inc.vercel.app/",
+        "logo": "https://site-total-inc.vercel.app/assets/logo/logo-total-incorporacoes.webp",
+        "image": "https://site-total-inc.vercel.app/assets/recantos/horizonte/hero-1280.webp",
+        "slogan": "Construindo seu Lar.",
+        "telephone": "+55-31-3568-6227",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Belo Horizonte",
+          "addressRegion": "MG",
+          "addressCountry": "BR"
+        },
+        "sameAs": ["https://www.instagram.com/totalincorporacoes/"]
+      }
+    </script>
     <script type="text/javascript">
       (function (c, l, a, r, i, t, y) {
         c[a] =
@@ -27,11 +74,22 @@
           function () {
             ;(c[a].q = c[a].q || []).push(arguments)
           }
-        t = l.createElement(r)
-        t.async = 1
-        t.src = 'https://www.clarity.ms/tag/' + i
-        y = l.getElementsByTagName(r)[0]
-        y.parentNode.insertBefore(t, y)
+        var booted = false
+        function boot() {
+          if (booted) return
+          booted = true
+          t = l.createElement(r)
+          t.async = 1
+          t.src = 'https://www.clarity.ms/tag/' + i
+          y = l.getElementsByTagName(r)[0]
+          y.parentNode.insertBefore(t, y)
+        }
+        ;['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (evt) {
+          c.addEventListener(evt, boot, { once: true, passive: true })
+        })
+        c.addEventListener('load', function () {
+          setTimeout(boot, 8000)
+        })
       })(window, document, 'clarity', 'script', 'yc8d2ig6u0')
     </script>
   </head>

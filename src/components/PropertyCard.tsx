@@ -1,4 +1,5 @@
 import type { Development } from '../data/developments'
+import { photoSrcSet } from '../lib/images'
 
 type Props = {
   item: Development
@@ -6,7 +7,16 @@ type Props = {
   stagger?: number
 }
 
+const coverWidths: Record<string, number[]> = {
+  'recanto-do-horizonte': [640, 960, 1280],
+  'recanto-da-mata': [640, 960],
+  'recanto-dos-alpes': [640, 960],
+}
+
 export function PropertyCard({ item, onOpen, stagger = 0 }: Props) {
+  const widths = coverWidths[item.slug] ?? [640, 960]
+  const srcSet = photoSrcSet(item.cover.src, widths, item.cover.width)
+
   return (
     <button
       type="button"
@@ -17,7 +27,8 @@ export function PropertyCard({ item, onOpen, stagger = 0 }: Props) {
     >
       <div className="photo-frame relative aspect-[3/2] w-full">
         <img
-          src={item.cover.src}
+          src={item.cover.src.replace(/(\.\w+)$/, '-640$1')}
+          srcSet={srcSet}
           alt={item.cover.alt}
           width={item.cover.width}
           height={item.cover.height}

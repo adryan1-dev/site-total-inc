@@ -1,6 +1,5 @@
-import { useMemo, useRef, useState } from 'react'
+import { lazy, Suspense, useMemo, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router'
-import { GalleryDialog } from '../components/GalleryDialog'
 import { PropertyCard } from '../components/PropertyCard'
 import { IconHouse } from '../components/Icons'
 import {
@@ -11,6 +10,10 @@ import {
 import { cities, statuses } from '../data/site'
 import { useReveal } from '../lib/reveal'
 import { usePageMeta } from '../lib/meta'
+
+const GalleryDialog = lazy(() =>
+  import('../components/GalleryDialog').then((module) => ({ default: module.GalleryDialog })),
+)
 
 export function CatalogPage() {
   const [params, setParams] = useSearchParams()
@@ -116,7 +119,11 @@ export function CatalogPage() {
         </p>
       </div>
 
-      <GalleryDialog item={open} index={index} onIndex={setIndex} onClose={() => setOpen(null)} />
+      {open ? (
+        <Suspense fallback={null}>
+          <GalleryDialog item={open} index={index} onIndex={setIndex} onClose={() => setOpen(null)} />
+        </Suspense>
+      ) : null}
     </div>
   )
 }

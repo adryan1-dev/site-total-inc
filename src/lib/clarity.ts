@@ -9,6 +9,7 @@ export function shouldInitClarity(
   return Boolean(projectId?.trim()) && mode !== 'test'
 }
 
+/** Clarity loads from the delayed snippet in index.html to keep it off the critical path. */
 export function initClarity() {
   const projectId = import.meta.env.VITE_CLARITY_PROJECT_ID?.trim() || CLARITY_PROJECT_ID
   if (!shouldInitClarity(projectId, import.meta.env.MODE)) return

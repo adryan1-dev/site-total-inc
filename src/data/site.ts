@@ -1,11 +1,17 @@
 export const site = {
   name: 'Total Incorporações',
+  url: 'https://site-total-inc.vercel.app',
   slogan: 'Construindo seu Lar.',
   phoneDisplay: '(31) 3568-6227',
   phoneHref: 'tel:+553135686227',
   instagramUrl: 'https://www.instagram.com/totalincorporacoes/',
   instagramHandle: '@totalincorporacoes',
   creci: 'CRECI/MG — a confirmar',
+  logo: {
+    src: '/assets/logo/logo-total-incorporacoes.webp',
+    width: 260,
+    height: 96,
+  },
 } as const
 
 export const messages = {
